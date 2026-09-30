@@ -1,9 +1,3 @@
-
-
-/* 
-   PART 2: IMPLEMENTATION EXERCISES
-    */
-
 // 1. Variables and Data Types
 let fullName = "Jane Doe";
 const age = 25;
@@ -60,10 +54,6 @@ switch (true) {
 }
 
 
-/* 
-   JS LOOPS AND FUNCTIONS - PART 1: CONTROL FLOW
-    */
-
 /*
    PART 2: ITERATION (FOR & WHILE LOOPS)*/
 
@@ -103,4 +93,4 @@ do {
 
 // Concise Arrow Function:
 const multiply = (a, b) => a * b;
-// Omitted: The 'function' keyword, curly braces '{}', and the 'return' keyword (implicit return).
+// Omitted: The 'function' keyword, curly braces '{}', and the 'return' keyword.
