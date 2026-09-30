@@ -1,0 +1,172 @@
+/* 
+   PART 1: DISCUSSION QUESTIONS
+   */
+
+/*
+1. var, let, and const:
+   - var: Can be reassigned and redeclared.
+   - let: Can be reassigned, cannot be redeclared in the same scope.
+   - const: Cannot be reassigned or redeclared.
+
+2. Primitive vs. Reference Types:
+   - Primitives (String, Number, Boolean, Null, Undefined, Symbol, BigInt): Stored by value directly in memory. 
+   - Reference Types (Objects, Arrays, Functions): Stored by reference. The variable holds a pointer to the memory location, meaning their internal contents can be mutated.
+
+3. Loose (==) vs Strict (===) Equality:
+   - Loose equality (==) coerces the values to the same data type before comparing 
+   - Strict equality (===) checks both the value AND the data type. 
+
+4. Logical Operators & Short-Circuit Evaluation:
+   - "Short-circuit evaluation" means the operator stops evaluating as soon as the outcome is certain.
+   - && : Evaluates left-to-right. Returns the first falsy value. If all are truthy, returns the last value.
+   - || : Evaluates left-to-right. Returns the first truthy value. If all are falsy, returns the last value.
+
+5. Switch Statements vs If...Else:
+   - A switch statement evaluates a single expression once and routes it to matching case clauses.
+   It is cleaner and more readable than a long chain of if...else if statements testing the same variable.
+   
+   - The 'default' keyword acts as the final else' block, executing only if no preceding cases match the expression.
+*/
+
+/* 
+
+
+/* 
+   JS LOOPS AND FUNCTIONS - PART 1: CONTROL FLOW
+    */
+
+/*
+Theoretical Mastery:
+1. Truthy and Falsy:
+   - A "falsy" value translates to 'false' when evaluated in a boolean context. Everything else is "truthy".
+   - Five falsy values: 0, "" (empty string), null, undefined, NaN (and false itself).
+
+2. Short-Circuit Logic Defaults:
+   - Because || returns the first truthy value, you can use it to assign defaults: 
+     let username = userInput || "Guest"; (If userInput is empty/falsy, it assigns "Guest").
+
+3. Strict Equality (===):
+   - Recommended because == performs type coercion, leading to unpredictable results (like [] == false evaluating to true). === ensures both type and value match perfectly.
+
+Technical Application:
+1. Condition Analysis:
+   - Block "Result A" executes. 
+   - Justification: x == y ("5" == 5) is true due to type coercion. typeof x === "string" is also true. True && True = True.
+
+2. Nested Logic Transformation:
+   // Original nested: 
+   // if (isLoggedIn) { if (isAdmin) { access = "Full"; } else { access = "Partial"; } } else { access = "None"; }
+   
+   // Transformed to Ternary:
+   let access = isLoggedIn ? (isAdmin ? "Full" : "Partial") : "None";
+   
+   - Ternaries are preferable for quick, single-line variable assignments. Switch/If-else is better for executing multi-line blocks of logic or side effects.
+*/
+
+/*
+   PART 2: ITERATION (FOR & WHILE LOOPS)
+
+/*
+Theoretical Mastery:
+1. The Loop Lifecycle:
+   - for(initialization; condition; final-expression)
+   - The 'final-expression' (e.g., i++) executes at the very end of the iteration cycle, AFTER the loop body finishes, but BEFORE the condition is checked again.
+
+2. Termination Hazards:
+   - A "loop invariant" is a condition that must remain true for the loop to continue. To ensure termination, the programmer must include code inside the while loop body that updates the variables used in the condition, eventually making the condition false.
+
+3. Break vs. Continue:
+   - 'break': Immediately destroys and exits the loop entirely.
+   - 'continue': Stops the current iteration, triggers the final-expression (increment), and jumps to the next cycle.
+*/
+
+
+/*
+Code Tracing (Nested Loops):
+let count = 0;
+for (let i = 0; i < 3; i++) {
+    for (let j = 3; j > i; j--) { count++; }
+}
+- i = 0: j is 3, 2, 1 (runs 3 times)
+- i = 1: j is 3, 2 (runs 2 times)
+- i = 2: j is 3 (runs 1 time)
+- Final value of count = 6.
+*/
+
+
+
+
+   PART 3: FUNCTIONS (ANATOMY & EXECUTION)
+/*
+
+Theoretical Mastery:
+1. Declaration vs Expression:
+   - Declaration: 'function myFunc() {}'. Fully hoisted; can be called before it is defined in the script.
+   - Expression: 'const myFunc = function() {}'. Hoisted as a variable. Cannot be called before initialization.
+
+2. Parameters and Rest/Spread:
+   - 'arguments': An older, array-like object (lacks modern array methods like .map or .filter).
+   - '...args' (Rest Parameter): Gathers arguments into a true JavaScript array. Preferred in modern JS because it works with arrow functions and gives full access to array methods.
+
+3. The Return Statement:
+   - If 'return' is used without a value (or omitted entirely), the function stops executing and evaluates to 'undefined'.
+*/
+
+// Technical Application: Arrow Function Anatomy
+// Original: function multiply(a, b) { return a * b; }
+
+
+
+
+
+
+/*
+Higher-Order Concepts:
+- If function A is passed to function B, function A is called a "Callback Function".
+- Data flows into the higher-order function (B), which does its work and then calls the callback (A), often passing data generated inside B back out to A as an argument.
+*/
+
+
+/* 
+   PART 4: SCOPES AND VARIABLE LIFETIME
+    */
+
+/*
+Theoretical Mastery:
+1. Global vs Local:
+   - The Global Object (window in browsers, global in Node) is the highest scope. 
+   - Polluting it by declaring too many global variables risks naming collisions where different scripts overwrite each other's data, causing bugs.
+
+2. Block Scope vs Function Scope:
+   - 'var' is function-scoped. It ignores if/for blocks entirely.
+   - 'let' and 'const' introduced block scope (bound by {}). This prevents variables like loop counters from leaking out into the wider function.
+
+3. Shadowing:
+   - If a local variable and a global variable have the exact same name, the JS engine accesses the local one first. The local variable "shadows" (hides) the outer one within that specific block/function.
+*/
+
+/*
+Technical Application: Scope Tracing
+
+let a = 10;
+function outer() {
+    let b = 20;
+    if (true) {
+        let a = 30;
+        var c = 40;
+        console.log(a + b); 
+    }
+    console.log(a);
+    console.log(c);
+}
+outer();
+
+- Outputs: 
+  50 (Inside the block, it uses the block-scoped 'a' which is 30. 30 + 20 = 50).
+  10 (Outside the block, the block-scoped 'let a = 30' is dead. It looks up the scope chain and finds the global 'a' which is 10).
+  40 (Because 'c' is declared with 'var', it ignores the if-block and is function-scoped to outer(), making it accessible here).
+
+Temporal Dead Zone:
+- Logging a 'var' before declaration yields 'undefined' due to hoisting.
+- Logging a 'let' or 'const' before declaration throws a 'ReferenceError'. The variable is known to exist, but sits in the Temporal Dead Zone until the JS engine reaches its exact line of code.
+*/
